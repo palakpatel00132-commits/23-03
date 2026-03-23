@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Quick Revision - Gujarati</title>
+    <style>
+        :root {
+            --primary: #f7df1e;
+            --dark: #222;
+            --light: #f4f4f4;
+            --accent: #ff6b6b;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: var(--dark);
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--dark);
+            border-radius: 5px;
+            background: var(--primary);
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #fff8e1;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #e3f2fd;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            margin-top: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="react.html">⚛️ React Core</a>
+    <a href="advanced-react.html">🔥 Advanced React</a>
+    <a href="node.html">🟢 Node.js Basics</a>
+    <a href="devops.html">♾️ DevOps & Production</a>
+</div>
+
+<header>
+    <a href="react.html" style="float: right; text-decoration: none; background: #61dafb; color: #282c34; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Go to React Core ⚛️</a>
+    <h1>JavaScript Quick Revision 🚀</h1>
+    <p>બધા મહત્વના ટોપિક્સ એકદમ સરળ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'var-let-const')">Var, Let, Const</button>
+        <button class="tab-btn" onclick="showTab(event, 'closures')">Closures</button>
+        <button class="tab-btn" onclick="showTab(event, 'async')">Async/Await</button>
+        <button class="tab-btn" onclick="showTab(event, 'array')">Array Methods</button>
+        <button class="tab-btn" onclick="showTab(event, 'hoisting')">Hoisting</button>
+        <button class="tab-btn" onclick="showTab(event, 'this')">This Keyword</button>
+        <button class="tab-btn" onclick="showTab(event, 'arrow')">Arrow Functions</button>
+        <button class="tab-btn" onclick="showTab(event, 'destructure')">Destructuring</button>
+        <button class="tab-btn" onclick="showTab(event, 'spread')">Spread/Rest</button>
+        <button class="tab-btn" onclick="showTab(event, 'call-apply-bind')">Call, Apply, Bind</button>
+        <button class="tab-btn" onclick="showTab(event, 'classes')">Classes</button>
+        <button class="tab-btn" onclick="showTab(event, 'modern-js')">Modern JS (?., ??)</button>
+    </div>
+
+    <!-- Var, Let, Const Section -->
+    <div id="var-let-const" class="content-section active">
+        <h2>1. Var vs Let vs Const �</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં વેરીએબલ ડિકલેર કરવાની ત્રણ રીત છે. આજના સમયમાં 'var' નો ઉપયોગ ટાળવો જોઈએ.
+        </div>
+        <table>
+            <tr>
+                <th>ફીચર</th>
+                <th>var</th>
+                <th>let</th>
+                <th>const</th>
+            </tr>
+            <tr>
+                <td>સ્કોપ (Scope)</td>
+                <td>ફંક્શન સ્કોપ</td>
+                <td>બ્લોક સ્કોપ {}</td>
+                <td>બ્લોક સ્કોપ {}</td>
+            </tr>
+            <tr>
+                <td>ફરીથી ડિકલેર</td>
+                <td>હા</td>
+                <td>ના</td>
+                <td>ના</td>
+            </tr>
+            <tr>
+                <td>વેલ્યુ બદલી શકાય?</td>
+                <td>હા</td>
+                <td>હા</td>
+                <td>ના</td>
+            </tr>
+        </table>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> 
+            - <b>var:</b> જૂનું ઘર જેના દરવાજા ખુલ્લા રહે છે (ગમે ત્યાંથી એક્સેસ).
+            - <b>let:</b> નવું ઘર જેમાં રૂમ પ્રમાણે પ્રાઈવસી છે.
+            - <b>const:</b> એકવાર તાળું મારી દીધું એટલે અંદરનો સામાન ના બદલાય!
+        </div>
+    </div>
+
+    <!-- Closures Section -->
+    <div id="closures" class="content-section">
+        <h2>2. Closures (ક્લોઝર) 🔒</h2>
+        <div class="explanation">
+            જ્યારે એક ફંક્શન બીજા ફંક્શનની અંદર હોય, ત્યારે અંદરનું ફંક્શન તેના બહારના ફંક્શનના વેરીએબલ્સને 'યાદ' રાખે છે.
+        </div>
+        <pre><code>function outer() {
+    let count = 0;
+    return function inner() {
+        count++;
+        return count;
+    };
+}
+const counter = outer();
+console.log(counter()); // 1</code></pre>
+    </div>
+
+    <!-- Async/Await Section -->
+    <div id="async" class="content-section">
+        <h2>3. Async Operations (અસિંક્રોનસ કામો) ⏳</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં જ્યારે કોઈ કામમાં વાર લાગે (જેમ કે API માંથી ડેટા લાવવો), ત્યારે તેને હેન્ડલ કરવાની ૩ મુખ્ય રીતો છે:
+        </div>
+
+        <h3>૧. Callbacks (જૂની રીત):</h3>
+        <div class="explanation">
+            એક ફંક્શન બીજા ફંક્શનને આર્ગ્યુમેન્ટ તરીકે પાસ કરવામાં આવે છે. આમાં 'Callback Hell' થવાની શક્યતા રહે છે.
+        </div>
+        <pre><code>function fetchData(callback) {
+    setTimeout(() => {
+        callback("ડેટા મળી ગયો! 📦");
+    }, 1000);
+}
+
+fetchData((result) => {
+    console.log(result);
+});</code></pre>
+
+        <h3>૨. Promises (.then / .catch):</h3>
+        <div class="explanation">
+            Callback Hell થી બચવા માટે ES6 માં પ્રોમિસ આવ્યું. આમાં <code>.then()</code> થી સક્સેસ અને <code>.catch()</code> થી એરર હેન્ડલ થાય છે.
+        </div>
+        <pre><code>const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("પ્રોમિસ પૂરું થયું! ✅"), 1000);
+});
+
+myPromise
+    .then(res => console.log(res))
+    .catch(err => console.log(err));</code></pre>
+
+        <h3>૩. Async / Await (આધુનિક રીત):</h3>
+        <div class="explanation">
+            આ પ્રોમિસ પર જ આધારિત છે, પણ કોડ વાંચવામાં 'Synchronous' જેવો લાગે છે. સૌથી વધુ આ જ વપરાય છે.
+        </div>
+        <pre><code>async function showData() {
+    try {
+        const res = await myPromise; // રાહ જોશે
+        console.log(res);
+    } catch (err) {
+        console.log(err);
+    }
+}</code></pre>
+    </div>
+
+    <!-- Array Methods Section -->
+    <div id="array" class="content-section">
+        <h2>4. Array Methods (એરે મેથડ્સ) 🛠️</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં એરે સાથે કામ કરવા માટે ઘણી બધી મેથડ્સ છે. અહીં સૌથી વધુ વપરાતી મેથડ્સની યાદી છે:
+        </div>
+
+        <h3>૧. iteration (લૂપિંગ) મેથડ્સ:</h3>
+        <ul>
+            <li><b>forEach:</b> એરેની દરેક આઈટમ માટે ફંક્શન ચલાવે છે.</li>
+            <li><b>map:</b> દરેક આઈટમ બદલીને <b>નવો એરે</b> આપે છે.</li>
+            <li><b>filter:</b> શરત મુજબ આઈટમ્સ ફિલ્ટર કરીને <b>નવો એરે</b> આપે છે.</li>
+            <li><b>reduce:</b> બધી આઈટમ્સ ભેગી કરીને <b>એક સિંગલ વેલ્યુ</b> આપે છે.</li>
+        </ul>
+        <pre><code>const nums = [1, 2, 3, 4];
+
+nums.forEach(n => console.log(n)); // ફક્ત પ્રિન્ટ કરશે
+const doubled = nums.map(n => n * 2); // [2, 4, 6, 8]
+const evens = nums.filter(n => n % 2 === 0); // [2, 4]
+const total = nums.reduce((sum, n) => sum + n, 0); // 10</code></pre>
+
+        <h3>૨. શોધવા (Searching) માટેની મેથડ્સ:</h3>
+        <ul>
+            <li><b>find:</b> શરત સંતોષતી <b>પહેલી આઈટમ</b> આપે છે.</li>
+            <li><b>findIndex:</b> પહેલી આઈટમનો <b>ઇન્ડેક્સ</b> આપે છે.</li>
+            <li><b>includes:</b> એરેમાં કોઈ વેલ્યુ છે કે નહીં તે (True/False) કહે છે.</li>
+        </ul>
+        <pre><code>const users = [{id: 1, name: "A"}, {id: 2, name: "B"}];
+
+const user = users.find(u => u.id === 2); // {id: 2, name: "B"}
+const index = users.findIndex(u => u.id === 2); // 1
+const hasThree = [1, 2, 3].includes(3); // true</code></pre>
+
+        <h3>૩. મોડિફાય (Modify) કરવા માટેની મેથડ્સ:</h3>
+        <ul>
+            <li><b>push / pop:</b> છેલ્લે આઈટમ ઉમેરવા / કાઢવા.</li>
+            <li><b>shift / unshift:</b> શરૂઆતમાં આઈટમ કાઢવા / ઉમેરવા.</li>
+            <li><b>splice:</b> વચ્ચેથી આઈટમ ઉમેરવા કે કાઢવા.</li>
+            <li><b>slice:</b> એરેનો અમુક ભાગ કાપીને નવો એરે બનાવવા.</li>
+        </ul>
+        <pre><code>let fruits = ["🍎", "🍌"];
+
+fruits.push("🍇"); // ["🍎", "🍌", "🍇"]
+fruits.pop(); // ["🍎", "🍌"]
+fruits.shift(); // ["🍌"]
+fruits.unshift("🍍"); // ["🍍", "🍌"]
+
+const subArray = [1, 2, 3, 4].slice(1, 3); // [2, 3]</code></pre>
+
+        <h3>૪. અન્ય મેથડ્સ:</h3>
+        <ul>
+            <li><b>sort:</b> એરેને ક્રમમાં ગોઠવવા.</li>
+            <li><b>some:</b> જો <b>કોઈપણ એક</b> આઈટમ શરત સંતોષે તો True.</li>
+            <li><b>every:</b> જો <b>બધી જ</b> આઈટમ શરત સંતોષે તો True.</li>
+        </ul>
+        <pre><code>const marks = [40, 50, 30, 80];
+
+const isAnyPass = marks.some(m => m >= 35); // true
+const isAllPass = marks.every(m => m >= 35); // false (કારણ કે 30 છે)
+const sorted = [10, 5, 80].sort((a, b) => a - b); // [5, 10, 80]</code></pre>
+    </div>
+
+    <!-- Hoisting Section -->
+    <div id="hoisting" class="content-section">
+        <h2>5. Hoisting (હોઈસ્ટિંગ) 🏗️</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં વેરીએબલ કે ફંક્શનને ડિકલેર (Declare) કર્યા પહેલા જ વાપરી શકાય છે, કારણ કે JS એન્જિન તેને કોડમાં સૌથી ઉપર લઈ જાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ ઉદાહરણ:</b> પરીક્ષામાં પેપર લખતા પહેલા જ ખબર હોય કે કયા સવાલો પૂછાવાના છે! JS કોડ ચલાવતા પહેલા બધા ડિકલેરેશન વાંચી લે છે.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>console.log(a); // undefined (ભૂલ નહીં આવે!)
+var a = 10;
+
+sayHi(); // "Hi!" (ફંક્શન પહેલા જ ચાલી જશે)
+function sayHi() {
+    console.log("Hi!");
+}</code></pre>
+    </div>
+
+    <!-- This Keyword Section -->
+    <div id="this" class="content-section">
+        <h2>6. 'this' Keyword 🙋‍♂️</h2>
+        <div class="explanation">
+            'this' કીવર્ડ હંમેશા એ ઓબ્જેક્ટને પોઈન્ટ કરે છે જે ફંક્શનને અત્યારે ચલાવી રહ્યો છે. તેની વેલ્યુ ક્યાંથી કોલ થાય છે તેના પર બદલાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ ઉદાહરણ:</b> "હું" શબ્દ. જો હું બોલું તો "હું" એટલે AI, જો તમે બોલો તો "હું" એટલે યુઝર. કોણ બોલે છે તેના પર "હું" નો અર્થ બદલાય!
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>const person = {
+    name: "રાહુલ",
+    greet: function() {
+        console.log("મારુ નામ " + this.name + " છે.");
+    }
+};
+
+person.greet(); // 'this' એટલે person ઓબ્જેક્ટ</code></pre>
+    </div>
+
+    <!-- Arrow Functions Section -->
+    <div id="arrow" class="content-section">
+        <h2>7. Arrow Functions 🏹</h2>
+        <div class="explanation">
+            Arrow functions એ ફંક્શન લખવાની ટૂંકી અને આધુનિક રીત છે. તેમાં 'this' કીવર્ડનું બિહેવિયર અલગ હોય છે (તે બહારના સ્કોપમાંથી 'this' લે છે).
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>// જૂની રીત
+function add(a, b) {
+    return a + b;
+}
+
+// નવી રીત (Arrow)
+const addArrow = (a, b) => a + b;
+
+const sayHello = name => console.log("Hello " + name);</code></pre>
+    </div>
+
+    <!-- Destructuring Section -->
+    <div id="destructure" class="content-section">
+        <h2>8. Destructuring (ડીસ્ટ્રક્ચરિંગ) ✂️</h2>
+        <div class="explanation">
+            એરે કે ઓબ્જેક્ટ માંથી વેલ્યુ કાઢીને સીધી વેરીએબલમાં મૂકવાની રીત.
+        </div>
+        <pre><code>const user = { name: "Palak", age: 25 };
+// જૂની રીત: const name = user.name;
+// નવી રીત:
+const { name, age } = user;
+console.log(name); // Palak</code></pre>
+    </div>
+
+    <!-- Spread/Rest Section -->
+    <div id="spread" class="content-section">
+        <h2>9. Spread & Rest Operator (...) 🌟</h2>
+        <div class="explanation">
+            - <b>Spread:</b> એરે કે ઓબ્જેક્ટને ખોલીને કોપી કરવા માટે.
+            - <b>Rest:</b> બધી વધારાની આઈટમ્સને ભેગી કરીને એક એરેમાં મૂકવા માટે.
+        </div>
+        <pre><code>// Spread: કોપી કરવી
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+// Rest: ભેગું કરવું
+function sum(...numbers) {
+    return numbers.reduce((a, b) => a + b, 0);
+}</code></pre>
+    </div>
+
+    <!-- Call, Apply, Bind Section -->
+    <div id="call-apply-bind" class="content-section">
+        <h2>10. Call, Apply, Bind (કોન્ટેક્સ્ટ બદલવા માટે) 🔗</h2>
+        <div class="explanation">
+            જ્યારે તમારે 'this' કીવર્ડને કોઈ ચોક્કસ ઓબ્જેક્ટ સાથે જોડવો હોય ત્યારે આ મેથડ્સ વપરાય છે.
+        </div>
+        <ul>
+            <li><b>call:</b> ફંક્શનને તરત જ રન કરે છે (આર્ગ્યુમેન્ટ્સ કોમાથી અપાય છે).</li>
+            <li><b>apply:</b> ફંક્શનને તરત જ રન કરે છે (આર્ગ્યુમેન્ટ્સ <b>એરે</b> માં અપાય છે).</li>
+            <li><b>bind:</b> નવું ફંક્શન બનાવીને આપે છે (જેને તમે પછીથી ગમે ત્યારે રન કરી શકો).</li>
+        </ul>
+        <pre><code>const user1 = { name: "રાહુલ" };
+function greet(city, state) {
+    console.log(`Hello, I am ${this.name} from ${city}, ${state}`);
+}
+
+greet.call(user1, "Surat", "Gujarat"); // તરત રન થશે
+greet.apply(user1, ["Surat", "Gujarat"]); // એરે સાથે રન થશે
+const boundFunc = greet.bind(user1, "Surat", "Gujarat"); // નવું ફંક્શન આપશે
+boundFunc(); // પછી રન કરી શકાય</code></pre>
+    </div>
+
+    <!-- Classes Section -->
+    <div id="classes" class="content-section">
+        <h2>11. ES6 Classes (ક્લાસીસ) 🏛️</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં ઓબ્જેક્ટ ઓરિએન્ટેડ પ્રોગ્રામિંગ (OOP) કરવા માટેની આધુનિક રીત.
+        </div>
+        <pre><code>class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    speak() {
+        console.log(`${this.name} અવાજ કરે છે.`);
+    }
+}
+
+class Dog extends Animal { // Inheritance (વારસો)
+    bark() {
+        console.log(`${this.name} ભસે છે! 🐶`);
+    }
+}
+
+const myDog = new Dog("Tommy");
+myDog.speak();
+myDog.bark();</code></pre>
+    </div>
+
+    <!-- Modern JS Section -->
+    <div id="modern-js" class="content-section">
+        <h2>12. Modern JS: Optional Chaining & Nullish Coalescing 💎</h2>
+        <div class="explanation">
+            આ નવી મેથડ્સ કોડને ક્રેશ થતા બચાવે છે:
+        </div>
+        <ul>
+            <li><b>Optional Chaining (?.):</b> જો ઓબ્જેક્ટમાં કોઈ પ્રોપર્ટી ના હોય, તો એરર આપવાને બદલે 'undefined' આપશે.</li>
+            <li><b>Nullish Coalescing (??):</b> જો વેલ્યુ null કે undefined હોય, તો જ ડિફોલ્ટ વેલ્યુ લેશે.</li>
+        </ul>
+        <pre><code>const user = { profile: { name: "Palak" } };
+
+// Optional Chaining
+console.log(user?.address?.city); // undefined (એરર નહીં આવે!)
+
+// Nullish Coalescing
+const score = 0;
+const finalScore = score ?? 10; // 0 (કારણ કે 0 null નથી)
+const name = null ?? "Guest"; // Guest</code></pre>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

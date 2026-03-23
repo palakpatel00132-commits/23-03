@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Basics - Step 6 (Gujarati)</title>
+    <style>
+        :root {
+            --primary: #339933;
+            --dark: #333333;
+            --light: #f0f0f0;
+            --accent: #80bd01;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: white;
+            background-color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin-top: 15px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="index.html">⬅️ JS Revision</a>
+    <a href="react.html">⚛️ React Core</a>
+    <a href="advanced-react.html">🔥 Advanced React</a>
+    <a href="devops.html">♾️ DevOps & Production</a>
+</div>
+
+<header>
+    <a href="devops.html" style="float: right; text-decoration: none; background: #6c5ce7; color: white; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Go to DevOps ♾️</a>
+    <h1>Node.js Basics 🟢</h1>
+    <p>Step 6: Node.js ના પાયાના કોન્સેપ્ટ્સ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'node-basics')">Node.js Basics</button>
+        <button class="tab-btn" onclick="showTab(event, 'event-loop')">Event Loop 🔄</button>
+        <button class="tab-btn" onclick="showTab(event, 'blocking-io')">Non-blocking I/O ⚡</button>
+        <button class="tab-btn" onclick="showTab(event, 'modules')">Modules 📦</button>
+        <button class="tab-btn" onclick="showTab(event, 'timers')">Timers ⏰</button>
+        <button class="tab-btn" onclick="showTab(event, 'express-basics')">Express Basics 🚀</button>
+        <button class="tab-btn" onclick="showTab(event, 'routing')">Routing 🛣️</button>
+        <button class="tab-btn" onclick="showTab(event, 'middleware')">Middleware 🛡️</button>
+        <button class="tab-btn" onclick="showTab(event, 'req-res')">Req & Res 📨</button>
+        <button class="tab-btn" onclick="showTab(event, 'error-handling')">Error Handling ⚠️</button>
+        <button class="tab-btn" onclick="showTab(event, 'rest-api')">REST API 🌐</button>
+        <button class="tab-btn" onclick="showTab(event, 'mongodb')">MongoDB & NoSQL 🗄️</button>
+        <button class="tab-btn" onclick="showTab(event, 'mongoose')">Mongoose 🔗</button>
+        <button class="tab-btn" onclick="showTab(event, 'auth')">Authentication 🔐</button>
+        <button class="tab-btn" onclick="showTab(event, 'api-integration')">API Integration 📦</button>
+        <button class="tab-btn" onclick="showTab(event, 'advanced-node')">Advanced Node ⚙️</button>
+        <button class="tab-btn" onclick="showTab(event, 'bonus-node')">Bonus Topics 🧠</button>
+    </div>
+
+    <!-- Node.js Basics Section -->
+    <div id="node-basics" class="content-section active">
+        <h2>1. Node.js Basics 🟢</h2>
+        <div class="explanation">
+            Node.js એ JavaScript રનટાઈમ છે જે બ્રાઉઝરની બહાર (સર્વર પર) JS કોડ ચલાવવા માટે વપરાય છે. તે Chrome ના V8 એન્જિન પર બનેલું છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> JavaScript પહેલા માછલી જેવી હતી જે ફક્ત પાણી (બ્રાઉઝર) માં જ રહી શકતી હતી. Node.js એ માછલીને જમીન (સર્વર) પર ચાલવા માટેનું 'હેલ્મેટ' અથવા સાધન આપ્યું!
+        </div>
+        <h3>મુખ્ય મુદ્દાઓ:</h3>
+        <ul>
+            <li>Single-threaded: એક જ સમયે એક જ કામ કરે.</li>
+            <li>Asynchronous: વાર લાગે તેવા કામો માટે અટકતું નથી.</li>
+            <li>Fast & Scalable: સર્વર સાઈડ એપ્લિકેશન માટે બેસ્ટ.</li>
+        </ul>
+    </div>
+
+    <!-- Event Loop Section -->
+    <div id="event-loop" class="content-section">
+        <h2>2. Event Loop (ઇવેન્ટ લૂપ) 🔄</h2>
+        <div class="explanation">
+            Node.js સિંગલ થ્રેડેડ હોવા છતાં કેવી રીતે આટલું ઝડપી છે? તેનું રહસ્ય <b>Event Loop</b> છે. તે સતત ચેક કરે છે કે કોઈ કામ પત્યું છે કે નહીં, અને પત્યું હોય તો તેનું રિઝલ્ટ આપે છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> એક હોટલનો વેઈટર. તે ઓર્ડર લઈને રસોડામાં આપી દે છે અને બીજા ટેબલ પર જાય છે. જ્યારે રસોડામાં જમવાનું તૈયાર થાય, ત્યારે તે પાછો જઈને પીરસી દે છે. તે રસોડામાં ઉભો નથી રહેતો!
+        </div>
+        <pre><code>console.log("શરૂઆત");
+
+setTimeout(() => {
+    console.log("હું થોડી વાર પછી આવીશ (Event Loop)");
+}, 0);
+
+console.log("અંત");
+
+// Output:
+// શરૂઆત
+// અંત
+// હું થોડી વાર પછી આવીશ (Event Loop)</code></pre>
+    </div>
+
+    <!-- Non-blocking I/O Section -->
+    <div id="blocking-io" class="content-section">
+        <h2>3. Non-blocking I/O ⚡</h2>
+        <div class="explanation">
+            Node.js માં જ્યારે કોઈ ફાઇલ વાંચવાની હોય કે API કોલ કરવાનો હોય, ત્યારે તે કામ પતે ત્યાં સુધી પ્રોગ્રામ અટકતો નથી. તે આગળના કામ કરવા માંડે છે.
+        </div>
+        <pre><code>const fs = require('fs');
+
+// Non-blocking (Asynchronous)
+fs.readFile('data.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+});
+
+console.log("ફાઇલ વંચાય છે, પણ હું અટક્યો નહીં! ✅");</code></pre>
+    </div>
+
+    <!-- Modules Section -->
+    <div id="modules" class="content-section">
+        <h2>4. Modules (CommonJS) 📦</h2>
+        <div class="explanation">
+            Node.js માં કોડને અલગ-અલગ ફાઇલોમાં વહેંચવા માટે Modules વપરાય છે. જૂની અને પ્રચલિત રીત <b>CommonJS</b> છે જેમાં <code>require</code> અને <code>module.exports</code> વપરાય છે.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>// math.js (Module બનાવવું)
+const add = (a, b) => a + b;
+module.exports = add;
+
+// app.js (Module વાપરવું)
+const add = require('./math');
+console.log(add(5, 10)); // 15</code></pre>
+    </div>
+
+    <!-- Timers Section -->
+    <div id="timers" class="content-section">
+        <h2>5. setTimeout vs setInterval (Timers) ⏰</h2>
+        <div class="explanation">
+            જાવાસ્ક્રિપ્ટમાં સમય સાથે કામ કરવા માટે બે મુખ્ય ટાઈમર છે. બંનેનો ફર્ક સમજવો બહુ જરૂરી છે:
+        </div>
+
+        <h3>૧. setTimeout (એક જ વાર):</h3>
+        <div class="explanation">
+            આ ફંક્શન આપેલા સમય પછી <b>ફક્ત એક જ વાર</b> ચાલે છે.
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> એલાર્મ (Alarm). સવારે ૭ વાગ્યાનું એલાર્મ વાગે એટલે કામ પૂરું, તે ફરીથી વાગતું નથી.
+        </div>
+        <pre><code>setTimeout(() => {
+    console.log("હું ૨ સેકન્ડ પછી ફક્ત એક જ વાર દેખાઈશ! 👋");
+}, 2000);</code></pre>
+
+        <h3>૨. setInterval (વારંવાર):</h3>
+        <div class="explanation">
+            આ ફંક્શન આપેલા સમયના અંતરે <b>વારંવાર (repeatedly)</b> ચાલ્યા જ કરે છે, જ્યાં સુધી તમે તેને રોકો નહીં.
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> ઘડિયાળના કાંટાનું ટીક-ટીક. તે દર ૧ સેકન્ડે થયા જ કરે છે.
+        </div>
+        <pre><code>const timer = setInterval(() => {
+    console.log("હું દર ૨ સેકન્ડે દેખાયા કરીશ! 🔄");
+}, 2000);
+
+// રોકવા માટે:
+// clearInterval(timer);</code></pre>
+    </div>
+
+    <!-- Express Basics Section -->
+    <div id="express-basics" class="content-section">
+        <h2>6. Express.js Basics 🚀</h2>
+        <div class="explanation">
+            Express એ Node.js માટેની એક વેબ ફ્રેમવર્ક છે જે સર્વર બનાવવાનું કામ એકદમ સરળ કરી દે છે. Node.js ના ઇન-બિલ્ટ <code>http</code> મોડ્યુલ કરતા આમાં કોડ લખવો ઘણો સહેલો છે.
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> Node.js એટલે કાચો માલ (ઈંટો, સિમેન્ટ), જ્યારે Express એટલે તૈયાર બંગલો અથવા ફ્લેટ જેમાં બધી સુવિધાઓ પહેલેથી જ છે!
+        </div>
+        <pre><code>const express = require('express');
+const app = express();
+
+app.listen(3000, () => {
+    console.log("સર્વર ચાલુ થઈ ગયું! 🚀");
+});</code></pre>
+    </div>
+
+    <!-- Routing Section -->
+    <div id="routing" class="content-section">
+        <h2>7. Routing (રાઉટિંગ) 🛣️</h2>
+        <div class="explanation">
+            યુઝર કયા URL પર જાય છે તે મુજબ તેને શું બતાવવું તેને રાઉટિંગ કહેવાય.
+        </div>
+        <ul>
+            <li><b>app.get('/'):</b> હોમ પેજ માટે.</li>
+            <li><b>app.post('/login'):</b> ડેટા સબમિટ કરવા માટે.</li>
+        </ul>
+        <pre><code>app.get('/', (req, res) => {
+    res.send("હેલો, આ હોમ પેજ છે! 👋");
+});
+
+app.get('/about', (req, res) => {
+    res.send("આ અમારા વિશેની માહિતી છે. ℹ️");
+});</code></pre>
+    </div>
+
+    <!-- Middleware Section -->
+    <div id="middleware" class="content-section">
+        <h2>8. Middleware (મિડલવેર) 🛡️</h2>
+        <div class="explanation">
+            મિડલવેર એવા ફંક્શન છે જે રિક્વેસ્ટ (Request) સર્વર સુધી પહોંચે તે પહેલા વચ્ચે ચાલે છે. તે ડેટા ચેક કરવા કે લોગ કરવા માટે વપરાય છે.
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> એક સિક્યુરિટી ગાર્ડ. તમે કોઈ ઓફિસમાં જાઓ તે પહેલા ગાર્ડ તમારું નામ-પત્તું ચેક કરે છે, તે મિડલવેર છે!
+        </div>
+        <pre><code>app.use((req, res, next) => {
+    console.log("નવી રિક્વેસ્ટ આવી! 📨");
+    next(); // આગળ વધવા માટે આ જરૂરી છે!
+});</code></pre>
+    </div>
+
+    <!-- Request & Response Section -->
+    <div id="req-res" class="content-section">
+        <h2>9. Request & Response 📨</h2>
+        <div class="explanation">
+            - <b>req (Request):</b> જે ડેટા ક્લાયન્ટ (બ્રાઉઝર) મોકલે છે. (URL, Body, Headers).<br>
+            - <b>res (Response):</b> જે ડેટા સર્વર પાછો મોકલે છે. (JSON, HTML, Status Code).
+        </div>
+        <pre><code>app.get('/user/:id', (req, res) => {
+    const id = req.params.id; // URL માંથી ID લેવો
+    res.status(200).json({ userId: id, name: "Palak" });
+});</code></pre>
+    </div>
+
+    <!-- Error Handling Section -->
+    <div id="error-handling" class="content-section">
+        <h2>10. Error Handling ⚠️</h2>
+        <div class="explanation">
+            જ્યારે સર્વરમાં કોઈ ભૂલ આવે, ત્યારે યુઝરને મસ્ત મેસેજ બતાવવા માટે એરર હેન્ડલિંગ વપરાય છે.
+        </div>
+        <pre><code>// ખાસ એરર હેન્ડલિંગ મિડલવેર (૪ આર્ગ્યુમેન્ટ્સ)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("કંઈક ભૂલ થઈ છે! ❌");
+});</code></pre>
+    </div>
+
+    <!-- REST API Section -->
+    <div id="rest-api" class="content-section">
+        <h2>11. REST API Concepts 🌐</h2>
+        <div class="explanation">
+            REST (Representational State Transfer) એ API બનાવવાની એક આર્કિટેક્ચર સ્ટાઇલ છે. તે સ્ટેટલેસ (Stateless) હોય છે, એટલે કે દરેક રિક્વેસ્ટમાં બધી જ માહિતી હોવી જોઈએ.
+        </div>
+
+        <h3>૧. CRUD Operations:</h3>
+        <p>API દ્વારા ડેટા સાથે ૪ મુખ્ય કામ કરી શકાય છે:</p>
+        <ul>
+            <li><b>Create (POST):</b> નવો ડેટા બનાવવા માટે.</li>
+            <li><b>Read (GET):</b> ડેટા મેળવવા માટે.</li>
+            <li><b>Update (PUT/PATCH):</b> જૂનો ડેટા બદલવા માટે.</li>
+            <li><b>Delete (DELETE):</b> ડેટા કાઢી નાખવા માટે.</li>
+        </ul>
+
+        <h3>૨. Common Status Codes:</h3>
+        <p>સર્વર રિક્વેસ્ટનો જવાબ એક કોડ દ્વારા આપે છે:</p>
+        <ul>
+            <li><b>200 OK:</b> બધું બરાબર પત્યું.</li>
+            <li><b>201 Created:</b> નવો ડેટા સફળતાપૂર્વક બની ગયો.</li>
+            <li><b>400 Bad Request:</b> તમારી રિક્વેસ્ટમાં કંઈક ભૂલ છે.</li>
+            <li><b>401 Unauthorized:</b> તમારે લોગિન કરવું પડશે.</li>
+            <li><b>404 Not Found:</b> આ પેજ કે ડેટા મળ્યો નથી.</li>
+            <li><b>500 Server Error:</b> સર્વરમાં કંઈક લોચો થયો છે.</li>
+        </ul>
+
+        <h3>૩. API Structure:</h3>
+        <div class="explanation">
+            એક સારી API હંમેશા સાફ અને ક્લિયર હોવી જોઈએ.
+        </div>
+        <pre><code>// સાચું Structure:
+// GET    /api/users          -> બધા યુઝર્સ મેળવો
+// GET    /api/users/123      -> ID 123 વાળો યુઝર મેળવો
+// POST   /api/users          -> નવો યુઝર બનાવો
+// PUT    /api/users/123      -> ID 123 વાળો યુઝર અપડેટ કરો
+// DELETE /api/users/123      -> ID 123 વાળો યુઝર ડિલીટ કરો</code></pre>
+
+        <div class="analogy">
+            <b>એનાલોજી:</b> એક પુસ્તકાલય (Library). 
+            - <b>GET:</b> ચોપડી વાંચવી.
+            - <b>POST:</b> નવી ચોપડી લાવીને મૂકવી.
+            - <b>PUT:</b> ફાટેલી ચોપડી બદલીને નવી મૂકવી.
+            - <b>DELETE:</b> જૂની ચોપડી કાઢી નાખવી.
+            - <b>Status Code:</b> લાઈબ્રેરિયનનો જવાબ (ચોપડી મળી, નથી મળી, કે તમે મેમ્બર નથી).
+        </div>
+    </div>
+
+    <!-- MongoDB & NoSQL Section -->
+    <div id="mongodb" class="content-section">
+        <h2>12. MongoDB & NoSQL Basics 🗄️</h2>
+        
+        <h3>૧. SQL vs NoSQL (તફાવત):</h3>
+        <table>
+            <tr>
+                <th>ફીચર</th>
+                <th>SQL (MySQL, Postgre)</th>
+                <th>NoSQL (MongoDB)</th>
+            </tr>
+            <tr>
+                <td>Structure</td>
+                <td>Table (Row/Column)</td>
+                <td>Document (JSON/BSON)</td>
+            </tr>
+            <tr>
+                <td>Schema</td>
+                <td>Fixed (પહેલેથી નક્કી)</td>
+                <td>Flexible (ગમે ત્યારે બદલાય)</td>
+            </tr>
+            <tr>
+                <td>Scaling</td>
+                <td>Vertical (મોટું કમ્પ્યુટર)</td>
+                <td>Horizontal (વધારે કમ્પ્યુટર)</td>
+            </tr>
+        </table>
+
+        <h3>૨. MongoDB Structure:</h3>
+        <ul>
+            <li><b>Database:</b> આખું કન્ટેનર.</li>
+            <li><b>Collection:</b> ટેબલ જેવું (દા.ત. Users).</li>
+            <li><b>Document:</b> એક ડેટા એન્ટ્રી (JSON જેવી).</li>
+        </ul>
+
+        <h3>૩. CRUD Operations:</h3>
+        <pre><code>// Create
+db.users.insertOne({ name: "Palak", age: 25 });
+
+// Read
+db.users.find({ name: "Palak" });
+
+// Update
+db.users.updateOne({ name: "Palak" }, { $set: { age: 26 } });
+
+// Delete
+db.users.deleteOne({ name: "Palak" });</code></pre>
+
+        <h3>૪. Indexing (ઇન્ડેક્સિંગ):</h3>
+        <div class="explanation">
+            જ્યારે લાખો ડેટા હોય, ત્યારે સર્ચિંગ ફાસ્ટ કરવા માટે <b>Indexing</b> વપરાય છે.
+        </div>
+        <pre><code>db.users.createIndex({ name: 1 }); // નામ પર ઇન્ડેક્સ બનાવવો</code></pre>
+
+        <div class="analogy">
+            <b>એનાલોજી:</b> 
+            - <b>SQL:</b> એક રજીસ્ટર જેમાં લીટીઓ અને ખાના પાડેલા છે.
+            - <b>NoSQL (MongoDB):</b> એક કબાટ (Database) જેમાં ફાઈલો (Collection) છે, અને દરેક ફાઈલની અંદર અલગ-અલગ કાગળો (Document) છે. કાગળમાં તમે ગમે તેટલી માહિતી લખી શકો!
+            - <b>Indexing:</b> ચોપડીના છેલ્લે આપેલું 'Index' પેજ, જેથી તમારે આખી ચોપડી વાંચવી ના પડે અને સીધું પેજ મળી જાય.
+        </div>
+    </div>
+
+    <!-- Mongoose Section -->
+    <div id="mongoose" class="content-section">
+        <h2>13. Mongoose (Object Data Modeling) 🔗</h2>
+        <div class="explanation">
+            Mongoose એ MongoDB માટેની એક લાઈબ્રેરી છે જે ડેટાને સ્ટ્રક્ચર (Schema) આપવામાં અને વેલિડેશન કરવામાં મદદ કરે છે.
+        </div>
+
+        <h3>૧. Schema & Model:</h3>
+        <ul>
+            <li><b>Schema:</b> ડેટાનું માળખું (Blueprint) કે ડેટા કેવો દેખાશે.</li>
+            <li><b>Model:</b> તે સ્કીમા પરથી બનેલું ઓબ્જેક્ટ જેનાથી આપણે ડેટાબેઝ સાથે વાત કરીએ છીએ.</li>
+        </ul>
+        <pre><code>const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    age: Number
+});
+
+const User = mongoose.model('User', userSchema);</code></pre>
+
+        <h3>૨. Validation (વેલિડેશન):</h3>
+        <div class="explanation">
+            ડેટાબેઝમાં ખોટો ડેટા ના જાય તે ચેક કરવાની રીત.
+        </div>
+        <pre><code>const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: [true, "Email જરૂરી છે!"],
+        unique: true,
+        lowercase: true
+    },
+    password: { type: String, minlength: 6 }
+});
+
+// વાપરતી વખતે:
+const post = await Post.find().populate('author'); // આનાથી 'author' ની બધી વિગતો મળી જશે!</code></pre>
+
+        <h3>૩. Relationships (સંબંધો):</h3>
+        <div class="explanation">
+            બે અલગ-અલગ ડેટા (Collections) ને જોડવા માટે <b>ref</b> અને <b>populate</b> વપરાય છે.
+        </div>
+        <ul>
+            <li><b>SQL:</b> આમાં <b>Foreign Key</b> અને <b>Join</b> વપરાય છે.</li>
+            <li><b>Mongoose:</b> આમાં <b>ref</b> (ID સાચવવા) અને <b>populate</b> (બીજા ટેબલનો ડેટા ખેંચવા) વપરાય છે.</li>
+        </ul>
+        <pre><code>// Post Schema (User સાથે જોડવું)
+const postSchema = new mongoose.Schema({
+    title: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+});
+
+// વાપરતી વખતે:
+const post = await Post.find().populate('author'); // આનાથી 'author' ની બધી વિગતો મળી જશે!</code></pre>
+
+        <div class="analogy">
+             <b>એનાલોજી:</b> 
+             - <b>Schema:</b> મકાનનો નકશો (કયો રૂમ ક્યાં હશે તે પહેલેથી નક્કી).
+             - <b>Model:</b> તૈયાર થયેલું મકાન જેમાં તમે રહી શકો.
+             - <b>Populate:</b> એક ફાઈલમાં બીજી ફાઈલનું એડ્રેસ લખેલું હોય, અને તમે તે એડ્રેસ પર જઈને બીજી ફાઈલની માહિતી પણ લઈ આવો.
+         </div>
+     </div>
+
+    <!-- Authentication Section -->
+    <div id="auth" class="content-section">
+        <h2>14. Authentication (ઓથેન્ટિકેશન) 🔐</h2>
+        <div class="explanation">
+            ઓથેન્ટિકેશન એટલે યુઝર કોણ છે તેની ખાતરી કરવી. આમાં બે મુખ્ય વસ્તુઓ છે: પાસવર્ડને સુરક્ષિત રાખવો અને લોગિન સેશન સાચવવું.
+        </div>
+
+        <h3>૧. Password Hashing (bcrypt):</h3>
+        <div class="explanation">
+            ક્યારેય પાસવર્ડને ડેટાબેઝમાં સાદો (Plain text) ના રખાય. <b>bcrypt</b> લાઈબ્રેરી પાસવર્ડને અઘરા કોડમાં ફેરવી નાખે છે.
+        </div>
+        <pre><code>const bcrypt = require('bcrypt');
+
+// પાસવર્ડ સેવ કરતી વખતે (Hash)
+const hashedPassword = await bcrypt.hash("myPassword123", 10);
+
+// લોગિન વખતે (Compare)
+const isMatch = await bcrypt.compare("myPassword123", hashedPassword);</code></pre>
+
+        <h3>૨. JWT (JSON Web Token):</h3>
+        <div class="explanation">
+            જ્યારે યુઝર લોગિન થાય, ત્યારે સર્વર એક <b>Token</b> આપે છે. આ ટોકન બ્રાઉઝર સાચવી લે છે અને દરેક રિક્વેસ્ટ સાથે મોકલે છે.
+        </div>
+        <pre><code>const jwt = require('jsonwebtoken');
+
+// ટોકન બનાવવો (Sign)
+const token = jwt.sign({ userId: user._id }, 'secret_key', { expiresIn: '1h' });
+
+// ટોકન ચેક કરવો (Verify)
+const decoded = jwt.verify(token, 'secret_key');</code></pre>
+
+        <h3>૩. Login / Signup Flow:</h3>
+        <div class="explanation" style="background: #fff3e0; border-left-color: #ff9800;">
+            <b>Signup:</b> User Data ➔ Hash Password ➔ Save to DB.<br>
+            <b>Login:</b> Check User ➔ Compare Hash ➔ Generate JWT Token ➔ Send to User.
+        </div>
+
+        <div class="analogy">
+            <b>એનાલોજી:</b> 
+            - <b>Password Hashing:</b> તમારો પાસવર્ડ એક 'મિક્સર' માં નાખીને તેનો જ્યુસ બનાવી દેવો. જ્યુસ પરથી પાછો આખો ફ્રૂટ (પાસવર્ડ) કોઈ ના બનાવી શકે!
+            - <b>JWT:</b> મુવીની ટિકિટ. તમે પૈસા આપીને ટિકિટ લો (Login), પછી આખું મુવી જોતી વખતે વારંવાર પૈસા ના આપવા પડે, ફક્ત ટિકિટ બતાવો એટલે ચાલે.
+        </div>
+    </div>
+
+    <!-- API Integration Section -->
+    <div id="api-integration" class="content-section">
+        <h2>15. API Integration (Backend to Backend) 📦</h2>
+        <div class="explanation">
+            જ્યારે તમારું સર્વર (Node.js) બીજા કોઈ સર્વર (API) સાથે વાત કરે છે, ત્યારે તેને Backend-to-Backend API Integration કહેવાય છે.
+        </div>
+
+        <h3>૧. Fetch / Axios (Backend side):</h3>
+        <div class="explanation">
+            - <b>Native Fetch:</b> Node.js 18+ માં પહેલેથી જ આવે છે.<br>
+            - <b>Axios:</b> એક્સ્ટ્રા લાઈબ્રેરી છે જે એરર હેન્ડલિંગ અને સિક્યુરિટીમાં વધુ સારી છે.
+        </div>
+        <pre><code>const axios = require('axios');
+
+const getExternalData = async () => {
+    try {
+        const response = await axios.get('https://api.example.com/data');
+        console.log(response.data);
+    } catch (error) {
+        console.error("ભૂલ આવી: ", error.message);
+    }
+};</code></pre>
+
+        <h3>૨. Handling API Errors:</h3>
+        <div class="explanation">
+            બીજા સર્વર પરથી ડેટા મંગાવતી વખતે હંમેશા <b>try...catch</b> બ્લોક વાપરવો જોઈએ જેથી જો બીજું સર્વર ડાઉન હોય તો તમારું સર્વર ક્રેશ ના થાય.
+        </div>
+        <pre><code>try {
+    const res = await axios.post('/api/save', { name: "Palak" });
+} catch (err) {
+    if (err.response) {
+        // સર્વર એ જવાબ આપ્યો પણ સ્ટેટસ કોડ 2xx નથી
+        console.log(err.response.status);
+    } else {
+        // રિક્વેસ્ટ જ ના ગઈ
+        console.log(err.message);
+    }
+}</code></pre>
+
+        <h3>૩. Async/await in APIs:</h3>
+        <div class="explanation">
+            બધા જ API કોલ્સ અસિંક્રોનસ (Asynchronous) હોય છે, એટલે કે જવાબ આવવામાં વાર લાગી શકે છે. તેથી <b>async/await</b> વાપરવાથી કોડ ચોખ્ખો અને સિંક્રોનસ જેવો લાગે છે.
+        </div>
+
+        <div class="analogy">
+             <b>એનાલોજી:</b> ઓનલાઇન શોપિંગ. 
+             - તમે ઓર્ડર આપો છો (API Request). 
+             - હવે જ્યાં સુધી ઓર્ડર ઘરે ના આવે (Response), ત્યાં સુધી તમે બીજા કામ કરી શકો છો (Asynchronous). 
+             - પણ જ્યારે ઓર્ડર આવે (Await), ત્યારે જ તમે પેકેટ ખોલીને ચેક કરી શકો છો. જો પેકેટ ફાટેલું હોય તો તમે ફરિયાદ કરો છો (Error Handling).
+         </div>
+     </div>
+
+    <!-- Advanced Node Section -->
+    <div id="advanced-node" class="content-section">
+        <h2>16. Advanced Node.js Concepts (2-3 yr exp) ⚙️</h2>
+        <div class="explanation">
+            જ્યારે તમે પ્રોફેશનલ લેવલ પર કામ કરો, ત્યારે કોડનું સ્ટ્રક્ચર અને સિક્યુરિટી બહુ જ મહત્વની બની જાય છે.
+        </div>
+
+        <h3>૧. MVC Architecture (માળખું):</h3>
+        <div class="explanation">
+            MVC એટલે કોડને ૩ ભાગમાં વહેંચવો જેથી મેનેજ કરવામાં સરળતા રહે:
+            <ul>
+                <li><b>Model:</b> ડેટાબેઝ સાથે જોડાયેલો ભાગ (Schema).</li>
+                <li><b>View:</b> જે યુઝરને દેખાય છે (Frontend/UI).</li>
+                <li><b>Controller:</b> મેઈન લોજિક જે મોડેલ અને વ્યૂ ને જોડે છે.</li>
+            </ul>
+        </div>
+
+        <h3>૨. Folder Structure:</h3>
+        <pre><code>/src
+  /controllers  -> લોજિક ફાઈલો
+  /models       -> સ્કીમા ફાઈલો
+  /routes       -> URL રાઉટ્સ
+  /middlewares  -> સિક્યુરિટી ફાઈલો
+  /config       -> ડેટાબેઝ કનેક્શન
+  server.js     -> મેઈન ફાઈલ</code></pre>
+
+        <h3>૩. Environment Variables (.env):</h3>
+        <div class="explanation">
+            સિક્રેટ ડેટા (જેમ કે ડેટાબેઝ પાસવર્ડ કે API Key) ને કોડમાં સીધો લખવાને બદલે <b>.env</b> ફાઈલમાં રાખવો જોઈએ.
+        </div>
+        <pre><code>// .env ફાઈલ
+PORT=3000
+DB_URL=mongodb://localhost:27017
+
+// server.js માં વાપરવા માટે
+require('dotenv').config();
+console.log(process.env.PORT);</code></pre>
+
+        <h3>૪. CORS (Cross-Origin Resource Sharing):</h3>
+        <div class="explanation">
+            જ્યારે તમારું રિએક્ટ (React) બીજા પોર્ટ પર હોય અને નોડ (Node) બીજા પોર્ટ પર હોય, ત્યારે બ્રાઉઝર સિક્યુરિટી માટે રિક્વેસ્ટ રોકી દે છે. તેને મંજૂરી આપવા માટે <b>CORS</b> મિડલવેર વપરાય છે.
+        </div>
+
+        <h3>૫. Rate Limiting:</h3>
+        <div class="explanation">
+            એક જ યુઝર વારંવાર રિક્વેસ્ટ મોકલીને સર્વર ડાઉન ના કરી દે, તે માટે રિક્વેસ્ટની સંખ્યા લિમિટ કરવી (દા.ત. ૧ મિનિટમાં ફક્ત ૧૦ રિક્વેસ્ટ).
+        </div>
+
+        <div class="analogy">
+            <b>એનાલોજી:</b> રેસ્ટોરન્ટ. 
+            - <b>MVC:</b> રસોડું (Model), મેનુ (View), અને વેઈટર (Controller). 
+            - <b>.env:</b> તિજોરીની ચાવી (ગમે ત્યાં ના રખાય, સિક્રેટ જગ્યાએ રખાય). 
+            - <b>CORS:</b> હોટલના નિયમો કે બહારનું જમવાનું અંદર નહીં લાવવાનું, જો લાવો તો પરમિશન લેવી પડે.
+            - <b>Rate Limiting:</b> બુફે (Buffet) માં લિમિટ હોવી કે તમે એકસાથે બધું જમવાનું ના લઈ શકો, વારફરતી લેવું પડે.
+        </div>
+    </div>
+
+    <!-- Bonus Topics Section -->
+    <div id="bonus-node" class="content-section">
+        <h2>17. Bonus Topics (Extra Knowledge) 🧠</h2>
+        <div class="explanation">
+            આ ટોપિક્સ તમારી એપ્લિકેશનને વધુ પાવરફુલ અને રિયલ-ટાઇમ બનાવવામાં મદદ કરે છે.
+        </div>
+
+        <h3>૧. File Upload (Multer):</h3>
+        <div class="explanation">
+            જ્યારે યુઝર પ્રોફાઇલ પિક્ચર કે કોઈ ડોક્યુમેન્ટ અપલોડ કરે, ત્યારે તેને હેન્ડલ કરવા માટે <b>Multer</b> મિડલવેર વપરાય છે.
+        </div>
+        <pre><code>const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/profile', upload.single('avatar'), (req, res) => {
+    // ફાઇલ req.file માં મળી જશે
+    res.send("ફાઇલ અપલોડ થઈ ગઈ! ✅");
+});</code></pre>
+
+        <h3>૨. WebSockets (Socket.io - Basic Idea):</h3>
+        <div class="explanation">
+            સામાન્ય API માં ક્લાયન્ટ રિક્વેસ્ટ મોકલે ત્યારે જ સર્વર જવાબ આપે. પણ <b>WebSockets</b> દ્વારા સર્વર અને ક્લાયન્ટ ગમે ત્યારે એકબીજાને મેસેજ મોકલી શકે છે (Real-time).
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> 
+            - <b>API:</b> ચિઠ્ઠી લખવી (તમે મોકલો પછી જ સામેથી જવાબ આવે).
+            - <b>WebSockets:</b> ફોન પર વાત કરવી (બંને ગમે ત્યારે બોલી શકે).
+        </div>
+
+        <h3>૩. Caching (Basic Intro):</h3>
+        <div class="explanation">
+            વારંવાર વપરાતો ડેટા (દા.ત. પ્રોડક્ટ લિસ્ટ) ને મેમરીમાં સાચવી લેવો જેથી દરેક વખતે ડેટાબેઝ સુધી ના જવું પડે. આનાથી એપ બહુ ફાસ્ટ ચાલે છે. (દા.ત. Redis).
+        </div>
+        <div class="analogy">
+            <b>એનાલોજી:</b> રસોડામાં મસાલાના ડબ્બા. 
+            તમારે જ્યારે મરચું જોઈએ, ત્યારે તમે સીધું ડબ્બામાંથી લો છો (Cache), તમારે દર વખતે કરિયાણાની દુકાને (Database) જવું પડતું નથી!
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

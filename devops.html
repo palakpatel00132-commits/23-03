@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps & Production - Step 7 (Gujarati)</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --accent: #00cec9;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: white;
+            background-color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #f3f0ff;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #e0f7fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent);
+            margin-top: 15px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="index.html">⬅️ JS Revision</a>
+    <a href="react.html">⚛️ React Core</a>
+    <a href="advanced-react.html">🔥 Advanced React</a>
+    <a href="node.html">🟢 Node.js Basics</a>
+</div>
+
+<header>
+    <a href="index.html" style="float: right; text-decoration: none; background: #f7df1e; color: #222; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Restart Revision 🔄</a>
+    <h1>DevOps & Production ♾️</h1>
+    <p>Step 7: DevOps અને પ્રોડક્શન ડિપ્લોયમેન્ટ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'devops-intro')">DevOps Intro</button>
+        <button class="tab-btn" onclick="showTab(event, 'cicd')">CI/CD Pipeline 🚀</button>
+        <button class="tab-btn" onclick="showTab(event, 'docker')">Docker 🐳</button>
+        <button class="tab-btn" onclick="showTab(event, 'kubernetes')">Kubernetes ☸️</button>
+        <button class="tab-btn" onclick="showTab(event, 'deployment-strategies')">Deployment Methods 🏗️</button>
+        <button class="tab-btn" onclick="showTab(event, 'monitoring')">Monitoring 📊</button>
+        <button class="tab-btn" onclick="showTab(event, 'cloud')">Cloud Providers ☁️</button>
+        <button class="tab-btn" onclick="showTab(event, 'iac')">IaC 📜</button>
+    </div>
+
+    <!-- DevOps Intro Section -->
+    <div id="devops-intro" class="content-section active">
+        <h2>1. DevOps શું છે? ♾️</h2>
+        <div class="explanation">
+            DevOps એટલે <b>Development (Dev)</b> અને <b>Operations (Ops)</b> નું મિશ્રણ. તે કોઈ ટૂલ નથી, પણ એક 'સંસ્કૃતિ' (Culture) છે જે સોફ્ટવેર બનાવવાની અને તેને સર્વર પર ચલાવવાની પ્રોસેસને ઝડપી બનાવે છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> એક એવી હોટલ જ્યાં રસોઈયા (Developers) અને વેઈટર (Operations) એકબીજા સાથે સતત વાત કરે છે, જેથી ઓર્ડર લેવામાં અને પીરસવામાં જરાય વાર ના લાગે!
+        </div>
+        <h3>મુખ્ય ફાયદાઓ:</h3>
+        <ul>
+            <li>ઝડપી ડિપ્લોયમેન્ટ (Fast Delivery).</li>
+            <li>ઓછી ભૂલો (Fewer Errors).</li>
+            <li>ઓટોમેશન (Automation).</li>
+            <li>સારી સિક્યુરિટી (Security).</li>
+        </ul>
+    </div>
+
+    <!-- CI/CD Pipeline Section -->
+    <div id="cicd" class="content-section">
+        <h2>2. CI/CD Pipeline 🚀</h2>
+        <div class="explanation">
+            CI/CD એ DevOps નો પાયો છે. તે કોડ લખવાથી લઈને સર્વર પર મૂકવા સુધીની બધી જ પ્રોસેસને ઓટોમેટ કરે છે.
+        </div>
+        <ul>
+            <li><b>CI (Continuous Integration):</b> જ્યારે પણ તમે કોડ GitHub પર પુશ કરો, ત્યારે તે ઓટોમેટિક ટેસ્ટ થાય અને બિલ્ડ બને.</li>
+            <li><b>CD (Continuous Deployment):</b> ટેસ્ટ પાસ થયા પછી કોડ ઓટોમેટિક પ્રોડક્શન સર્વર પર જતો રહે.</li>
+        </ul>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> કાર બનાવવાની ફેક્ટરી. એક બાજુથી કાચો માલ (Code) નાખો, વચ્ચે મશીનો (CI) ચેક કરે અને બીજી બાજુથી તૈયાર કાર (App) બહાર નીકળે!
+        </div>
+        <h3>ટૂલ્સ:</h3>
+        <p>GitHub Actions, Jenkins, GitLab CI, CircleCI.</p>
+    </div>
+
+    <!-- Docker Section -->
+    <div id="docker" class="content-section">
+        <h2>3. Docker (Containerization) 🐳</h2>
+        <div class="explanation">
+            Docker તમારા આખા પ્રોગ્રામને (કોડ, લાઈબ્રેરી, સેટિંગ્સ) એક નાના 'ડબ્બા' (Container) માં પેક કરી દે છે. આ ડબ્બો દુનિયાના કોઈ પણ કમ્પ્યુટર પર એકસરખી રીતે ચાલશે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> શિપિંગ કન્ટેનર. તેમાં તમે ફ્રીઝ ભરો કે ટીવી, તે કોઈ પણ જહાજ પર ચઢાવી શકાય અને ક્યાંય પણ મોકલી શકાય. સામાન અંદર સુરક્ષિત રહે છે!
+        </div>
+        <pre><code># સાદું Dockerfile
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node", "server.js"]</code></pre>
+        <p><b>Docker Compose:</b> એકસાથે ઘણા બધા કન્ટેનર (દા.ત. Node + MongoDB) ચલાવવા માટે વપરાય છે.</p>
+    </div>
+
+    <!-- Kubernetes Section -->
+    <div id="kubernetes" class="content-section">
+        <h2>4. Kubernetes (K8s) ☸️</h2>
+        <div class="explanation">
+            જ્યારે તમારી પાસે સેંકડો Docker કન્ટેનર હોય, ત્યારે તેમને મેનેજ કરવા માટે Kubernetes વપરાય છે. તે ચેક કરે છે કે કયું કન્ટેનર ડાઉન છે અને તેને ઓટોમેટિક ફરીથી ચાલુ કરે છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> જહાજનો કેપ્ટન. તે નક્કી કરે છે કે કયું કન્ટેનર ક્યાં મુકાશે અને જો કોઈ કન્ટેનર પડી જાય તો તેને તરત જ સરખું કરાવે છે.
+        </div>
+        <h3>મુખ્ય ફીચર્સ:</h3>
+        <ul>
+            <li><b>Auto-scaling:</b> જો ટ્રાફિક વધે તો ઓટોમેટિક નવા સર્વર ઉમેરે.</li>
+            <li><b>Self-healing:</b> જો કોઈ કન્ટેનર ક્રેશ થાય તો તેને નવું બનાવી દે.</li>
+            <li><b>Load Balancing:</b> ટ્રાફિકને બધા સર્વર વચ્ચે સરખે ભાગે વહેંચે.</li>
+        </ul>
+    </div>
+
+    <!-- Deployment Methods Section -->
+    <div id="deployment-strategies" class="content-section">
+        <h2>5. Production Deployment Methods 🏗️</h2>
+        <div class="explanation">
+            જ્યારે તમે એપનું નવું વર્ઝન (Version) લાવો, ત્યારે યુઝરને કોઈ તકલીફ ના પડે તે માટે અલગ-અલગ રીતો વપરાય છે:
+        </div>
+
+        <h3>૧. Rolling Deployment (ધીરે-ધીરે):</h3>
+        <p>એક પછી એક જૂના સર્વર બંધ કરીને નવા વર્ઝનવાળા સર્વર ચાલુ કરવા. આમાં એપ ક્યારેય બંધ (Downtime) નથી થતી.</p>
+
+        <h3>૨. Blue-Green Deployment (બે સર્વર):</h3>
+        <p>બે આબેહૂબ સર્વર સેટઅપ કરવા. 'Blue' માં જૂનું વર્ઝન ચાલે અને 'Green' માં નવું. એકવાર નવું ચેક થઈ જાય એટલે બધો ટ્રાફિક 'Green' પર મોકલી દેવો.</p>
+
+        <h3>૩. Canary Deployment (ટેસ્ટિંગ):</h3>
+        <p>નવું વર્ઝન ફક્ત ૫% યુઝર્સને જ બતાવવું. જો બધું બરાબર લાગે, તો જ બાકીના ૯૫% ને બતાવવું.</p>
+
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> 
+            - <b>Rolling:</b> ટ્રેનના ડબ્બા એક-એક કરીને બદલવા.
+            - <b>Blue-Green:</b> નવો પુલ બાજુમાં જ તૈયાર રાખવો, જૂનો બંધ કરીને સીધો નવો ચાલુ કરી દેવો.
+            - <b>Canary:</b> લગ્નમાં જમવાનું બનાવતી વખતે પહેલા થોડા લોકોને ચખાડવું, જો મીઠું બરાબર હોય તો જ બધાને પીરસવું!
+        </div>
+    </div>
+
+    <!-- Monitoring Section -->
+    <div id="monitoring" class="content-section">
+        <h2>6. Monitoring & Logging 📊</h2>
+        <div class="explanation">
+            એપ પ્રોડક્શન પર ચાલતી હોય ત્યારે તેમાં કોઈ ભૂલ આવે તો તરત ખબર પડવી જોઈએ. તેને 'Observability' પણ કહેવાય છે.
+        </div>
+        <ul>
+            <li><b>Logging:</b> એપમાં શું થઈ રહ્યું છે તેની હિસ્ટ્રી સાચવવી (દા.ત. ELK Stack, Winston).</li>
+            <li><b>Monitoring:</b> સર્વરની હેલ્થ (RAM, CPU) ચેક કરવી (દા.ત. Prometheus, Grafana).</li>
+            <li><b>Alerting:</b> જો સર્વર ડાઉન થાય તો ઈમેલ કે મેસેજ મોકલવો.</li>
+        </ul>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> હોસ્પિટલમાં ICU પેશન્ટનું મોનિટર. તે સતત હૃદયના ધબકારા બતાવે અને જો કંઈક લોચો થાય તો સીટી વાગે!
+        </div>
+    </div>
+
+    <!-- Cloud Providers Section -->
+    <div id="cloud" class="content-section">
+        <h2>7. Cloud Providers ☁️</h2>
+        <div class="explanation">
+            તમારે પોતાનું મોટું સર્વર ખરીદવાની જરૂર નથી, તમે ભાડે લઈ શકો છો. આ સર્વિસ આપતી કંપનીઓને Cloud Providers કહેવાય છે.
+        </div>
+        <table>
+            <tr>
+                <th>Provider</th>
+                <th>માલિક</th>
+                <th>લોકપ્રિયતા</th>
+            </tr>
+            <tr>
+                <td><b>AWS (Amazon Web Services)</b></td>
+                <td>Amazon</td>
+                <td>સૌથી વધુ વપરાય છે.</td>
+            </tr>
+            <tr>
+                <td><b>Azure</b></td>
+                <td>Microsoft</td>
+                <td>મોટી કંપનીઓ (Enterprise) માટે બેસ્ટ.</td>
+            </tr>
+            <tr>
+                <td><b>GCP (Google Cloud)</b></td>
+                <td>Google</td>
+                <td>ડેટા અને AI માટે બેસ્ટ.</td>
+            </tr>
+        </table>
+        <p><b>DigitalOcean / Heroku / Vercel:</b> નાના પ્રોજેક્ટ્સ માટે સસ્તા અને સરળ ઓપ્શન.</p>
+    </div>
+
+    <!-- IaC Section -->
+    <div id="iac" class="content-section">
+        <h2>8. Infrastructure as Code (IaC) 📜</h2>
+        <div class="explanation">
+            સર્વર, ડેટાબેઝ કે નેટવર્કને માઉસથી ક્લિક કરીને સેટ કરવાને બદલે 'કોડ' લખીને સેટ કરવાની રીતને IaC કહેવાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> ઓનલાઇન જમવાનું ઓર્ડર કરવું. તમારે રસોડામાં જવાની જરૂર નથી, ફક્ત મોબાઈલ પર ઓર્ડર (Code) આપો એટલે જમવાનું તૈયાર થઈને આવી જાય!
+        </div>
+        <p><b>ટૂલ્સ:</b> Terraform, Ansible, CloudFormation.</p>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

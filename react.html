@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Core - Step 2 (Gujarati)</title>
+    <style>
+        :root {
+            --primary: #61dafb;
+            --dark: #282c34;
+            --light: #f4f4f4;
+            --accent: #ff6b6b;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: var(--primary);
+            background-color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            background: var(--dark);
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #e1f5fe;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin-top: 15px;
+        }
+        .important {
+            color: #d32f2f;
+            font-weight: bold;
+            background: #ffebee;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="index.html">⬅️ JS Revision</a>
+    <a href="advanced-react.html">🔥 Advanced React</a>
+    <a href="node.html">🟢 Node.js Basics</a>
+    <a href="devops.html">♾️ DevOps & Production</a>
+</div>
+
+<header>
+    <a href="advanced-react.html" style="float: right; text-decoration: none; background: #a29bfe; color: #2d3436; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Go to Advanced React 🔥</a>
+    <h1>React Core Revision ⚛️</h1>
+    <p>Step 2: React ના પાયાના કોન્સેપ્ટ્સ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'functional-comp')">Functional Components</button>
+        <button class="tab-btn" onclick="showTab(event, 'usestate')">useState</button>
+        <button class="tab-btn" onclick="showTab(event, 'useeffect')">useEffect ⚠️</button>
+        <button class="tab-btn" onclick="showTab(event, 'props-state')">Props vs State</button>
+        <button class="tab-btn" onclick="showTab(event, 'child-to-parent')">Child to Parent ⬆️</button>
+        <button class="tab-btn" onclick="showTab(event, 'conditional')">Conditional Rendering</button>
+        <button class="tab-btn" onclick="showTab(event, 'lists-keys')">Lists & Keys 🔑</button>
+        <button class="tab-btn" onclick="showTab(event, 'fragments')">Fragments <> </button>
+    </div>
+
+    <!-- Functional Components Section -->
+    <div id="functional-comp" class="content-section active">
+        <h2>1. Functional Components 🏗️</h2>
+        <div class="explanation">
+            React માં કમ્પોનન્ટ એટલે એક સાદું JavaScript ફંક્શન જે HTML (JSX) રિટર્ન કરે છે. આજના સમયમાં ક્લાસ કમ્પોનન્ટની જગ્યાએ આ જ વપરાય છે.
+        </div>
+        <pre><code>function Welcome() {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Hello React!&lt;/h1&gt;
+            &lt;p&gt;આ એક ફંક્શનલ કમ્પોનન્ટ છે.&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </div>
+
+    <!-- useState Section -->
+    <div id="usestate" class="content-section">
+        <h2>2. useState Hook 🔢</h2>
+        <div class="explanation">
+            જ્યારે કમ્પોનન્ટમાં કોઈ ડેટા બદલાય અને આપણે પેજને અપડેટ કરવું હોય, ત્યારે <code>useState</code> વપરાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> સ્કોરબોર્ડ. રન વધે એટલે સ્કોરબોર્ડ પર આંકડો બદલાય, તેમ સ્ટેટ બદલાય એટલે UI બદલાય.
+        </div>
+        <pre><code>import { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;તમે {count} વાર ક્લિક કર્યું.&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;વધારો&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </div>
+
+    <!-- useEffect Section -->
+    <div id="useeffect" class="content-section">
+        <h2>3. useEffect Hook (VERY IMPORTANT ⚠️)</h2>
+        <div class="explanation">
+            જ્યારે કમ્પોનન્ટ લોડ થાય, અપડેટ થાય કે બંધ થાય ત્યારે કોઈ કામ કરવું હોય (જેમ કે API કોલ), ત્યારે <code>useEffect</code> વપરાય છે. આમાં <b>Dependency Array</b> ના ૩ મુખ્ય કિસ્સાઓ (scenarios) છે:
+        </div>
+
+        <h3>૧. Dependency Array વગર (No Array):</h3>
+        <div class="explanation">
+            જો તમે બીજો આર્ગ્યુમેન્ટ ના આપો, તો આ ઇફેક્ટ <b>દરેક રેન્ડર (render)</b> વખતે ચાલશે.
+        </div>
+        <pre><code>useEffect(() => {
+    console.log("હું દરેક વખતે ચાલીશ! 🔄");
+});</code></pre>
+
+        <h3>૨. ખાલી Dependency Array (Empty Array []):</h3>
+        <div class="explanation">
+            આ ઇફેક્ટ ફક્ત <b>પહેલી જ વાર (on mount)</b> ચાલશે. API કોલ કરવા માટે આ સૌથી વધુ વપરાય છે.
+        </div>
+        <pre><code>useEffect(() => {
+    console.log("હું ફક્ત પહેલી જ વાર ચાલીશ! 🚀");
+}, []); </code></pre>
+
+        <h3>૩. વેરીએબલ સાથે (With Variables [data]):</h3>
+        <div class="explanation">
+            જ્યારે એરેમાં લખેલો <b>વેરીએબલ બદલાશે</b>, ત્યારે જ આ ઇફેક્ટ ફરીથી ચાલશે.
+        </div>
+        <pre><code>const [count, setCount] = useState(0);
+
+useEffect(() => {
+    console.log("જ્યારે count બદલાશે ત્યારે જ હું ચાલીશ! 📈");
+}, [count]); </code></pre>
+
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> 
+            - <b>No Array:</b> શ્વાસ લેવો (દરેક પળે ચાલુ).
+            - <b>Empty Array:</b> જન્મ લેવો (જીવનમાં ફક્ત એક જ વાર).
+            - <b>With Variables:</b> ભૂખ લાગે ત્યારે જમવું (જ્યારે ભૂખ લાગે ત્યારે જ આ કામ થાય).
+        </div>
+    </div>
+
+    <!-- Props vs State Section -->
+    <div id="props-state" class="content-section">
+        <h2>4. Props vs State 🔄</h2>
+        <div class="explanation">
+            બંને ડેટા સાચવે છે પણ બંનેનો હેતુ અલગ છે:
+        </div>
+        <ul>
+            <li><b>Props:</b> બહારથી (Parent માંથી) મળતો ડેટા. તે <b>Read-only</b> છે.</li>
+            <li><b>State:</b> કમ્પોનન્ટનો પોતાનો <b>Private</b> ડેટા જે બદલી શકાય છે.</li>
+        </ul>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> 
+            - <b>Props:</b> પપ્પાએ આપેલી ગિફ્ટ (તમે તેને બદલી ના શકો).
+            - <b>State:</b> તમારા ખિસ્સામાં રહેલા પૈસા (તમે ગમે ત્યારે વાપરી કે વધારી શકો).
+        </div>
+    </div>
+
+    <!-- Child to Parent Section -->
+    <div id="child-to-parent" class="content-section">
+        <h2>5. Child to Parent Communication ⬆️</h2>
+        <div class="explanation">
+            React માં ડેટા હંમેશા ઉપરથી નીચે (Parent થી Child) જાય છે. જો Child માંમાંથી Parent ને ડેટા મોકલવો હોય, તો Parent એક <b>ફંક્શન (Function)</b> Child ને Props તરીકે આપે છે, અને Child તે ફંક્શનને કોલ કરીને ડેટા પાછો મોકલે છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> વોકી-ટોકી. Parent (મેઈન સ્ટેશન) Child ને કહે છે "જ્યારે કામ પતી જાય ત્યારે મને આ બટન દબાવીને જણાવજો". Child બટન દબાવે (Function call કરે) એટલે Parent ને ખબર પડી જાય.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>// Parent Component
+function Parent() {
+    const handleDataFromChild = (data) => {
+        console.log("Child એ મોકલેલ ડેટા:", data);
+    };
+
+    return &lt;Child onSend={handleDataFromChild} /&gt;;
+}
+
+// Child Component
+function Child({ onSend }) {
+    return (
+        &lt;button onClick={() =&gt; onSend("હેલો પપ્પા! 👋")}&gt;
+            Parent ને ડેટા મોકલો
+        &lt;/button&gt;
+    );
+}</code></pre>
+    </div>
+
+    <!-- Conditional Rendering Section -->
+    <div id="conditional" class="content-section">
+        <h2>6. Conditional Rendering 🚦</h2>
+        <div class="explanation">
+            શરત (Condition) મુજબ અલગ-અલગ HTML બતાવવાની રીત.
+        </div>
+        <pre><code>function Greeting({ isLoggedIn }) {
+    return (
+        &lt;div&gt;
+            {isLoggedIn ? (
+                &lt;h1&gt;વેલકમ બેક! 👋&lt;/h1&gt;
+            ) : (
+                &lt;h1&gt;કૃપા કરીને લોગિન કરો. 🔑&lt;/h1&gt;
+            )}
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </div>
+
+    <!-- Lists & Keys Section -->
+    <div id="lists-keys" class="content-section">
+        <h2>7. Lists & Keys 🔑</h2>
+        <div class="explanation">
+            જ્યારે તમારે એરે (Array) માંથી ડેટા લઈને લિસ્ટ બતાવવું હોય, ત્યારે <code>map()</code> ફંક્શન વપરાય છે. દરેક આઈટમને એક યુનિક <b>Key</b> આપવી જરૂરી છે જેથી React જાણી શકે કે કઈ આઈટમ બદલાઈ છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> રોલ નંબર. ક્લાસમાં બધાના નામ સરખા હોઈ શકે, પણ રોલ નંબર અલગ હોય એટલે ટીચરને ખબર પડે કે કોણ કોણ હાજર છે.
+        </div>
+        <pre><code>const fruits = ["🍎", "🍌", "🍇"];
+
+return (
+    &lt;ul&gt;
+        {fruits.map((fruit, index) => (
+            &lt;li key={index}&gt;{fruit}&lt;/li&gt;
+        ))}
+    &lt;/ul&gt;
+);</code></pre>
+    </div>
+
+    <!-- Fragments Section -->
+    <div id="fragments" class="content-section">
+        <h2>8. Fragments (&lt;&gt; &lt;/&gt;) 📦</h2>
+        <div class="explanation">
+            React માં કમ્પોનન્ટ હંમેશા એક જ પેરેન્ટ એલિમેન્ટ રિટર્ન કરી શકે. જો તમારે વગર કારણે વધારાનો <code>&lt;div&gt;</code> ના ઉમેરવો હોય, તો તમે <b>Fragment</b> વાપરી શકો છો.
+        </div>
+        <pre><code>return (
+    &lt;&gt;
+        &lt;h1&gt;હેલો&lt;/h1&gt;
+        &lt;p&gt;વધારાના div વગર!&lt;/p&gt;
+    &lt;/&gt;
+);</code></pre>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>

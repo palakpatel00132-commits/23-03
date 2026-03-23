@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced React - Step 3 (Gujarati)</title>
+    <style>
+        :root {
+            --primary: #a29bfe;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --accent: #ff7675;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: white;
+            background-color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #0984e3;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #0984e3;
+            border-radius: 5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #fdf2f2;
+            padding: 15px;
+            border-left: 5px solid var(--accent);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #e1f5fe;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid #03a9f4;
+            margin-top: 15px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #636e72;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="index.html">⬅️ JS Revision</a>
+    <a href="react.html">⚛️ React Core</a>
+    <a href="node.html">🟢 Node.js Basics</a>
+    <a href="devops.html">♾️ DevOps & Production</a>
+</div>
+
+<header>
+    <a href="node.html" style="float: right; text-decoration: none; background: #339933; color: white; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Go to Node.js 🟢</a>
+    <h1>Advanced React Revision 🔥</h1>
+    <p>Step 3: React ના એડવાન્સ હૂક્સ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'usememo')">useMemo</button>
+        <button class="tab-btn" onclick="showTab(event, 'usecallback')">useCallback</button>
+        <button class="tab-btn" onclick="showTab(event, 'useref')">useRef</button>
+        <button class="tab-btn" onclick="showTab(event, 'customhooks')">Custom Hooks</button>
+        <button class="tab-btn" onclick="showTab(event, 'contextapi')">Context API 🌐</button>
+        <button class="tab-btn" onclick="showTab(event, 'usereducer')">useReducer ⚙️</button>
+        <button class="tab-btn" onclick="showTab(event, 'redux')">Redux Toolkit 🧠</button>
+        <button class="tab-btn" onclick="showTab(event, 'api-basics')">API & Full Stack 🌐</button>
+    </div>
+
+    <!-- useMemo Section -->
+    <div id="usememo" class="content-section active">
+        <h2>1. useMemo (પરફોર્મન્સ ઓપ્ટિમાઈઝેશન) 🧠</h2>
+        <div class="explanation">
+            જ્યારે તમારી પાસે કોઈ <b>ભારે કેલ્ક્યુલેશન (Expensive calculation)</b> હોય, અને તમે નથી ઈચ્છતા કે તે દરેક વખતે ફરીથી ગણાય, ત્યારે <code>useMemo</code> વપરાય છે. તે ગણેલી વેલ્યુને 'યાદ' રાખી લે છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> ગણિતના અઘરા દાખલાનો જવાબ રફ પેજ પર લખી લેવો. હવે જ્યારે પણ એ જ સવાલ આવે, તો તમારે ગણવો ના પડે, સીધો જવાબ જોઈ શકો!
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>const result = useMemo(() => {
+    return expensiveFunction(data); // ફક્ત ત્યારે જ ચાલશે જ્યારે data બદલાશે
+}, [data]);</code></pre>
+    </div>
+
+    <!-- useCallback Section -->
+    <div id="usecallback" class="content-section">
+        <h2>2. useCallback (ફંક્શન મેમોઈઝેશન) 📞</h2>
+        <div class="explanation">
+            જ્યારે કમ્પોનન્ટ ફરીથી રેન્ડર થાય ત્યારે જૂના ફંક્શનને ફરીથી બનતા અટકાવવા માટે <code>useCallback</code> વપરાય છે. આનાથી ચાઈલ્ડ કમ્પોનન્ટને વગર કારણે રેન્ડર થતા અટકાવી શકાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> ફોન નંબર સેવ કરવો. જો તમારી પાસે નંબર સેવ છે, તો તમારે દર વખતે ડાયલપેડમાં આંકડા નથી લખવા પડતા, સીધું કોન્ટેક્ટ લિસ્ટમાંથી કોલ કરી શકો.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>const handleData = useCallback(() => {
+    console.log("હું ફક્ત ત્યારે જ નવો બનીશ જ્યારે ID બદલાશે!");
+}, [id]);</code></pre>
+    </div>
+
+    <!-- useRef Section -->
+    <div id="useref" class="content-section">
+        <h2>3. useRef (ડાયરેક્ટ DOM એક્સેસ) 📍</h2>
+        <div class="explanation">
+            જ્યારે તમારે કોઈ HTML એલિમેન્ટને સીધો એક્સેસ કરવો હોય (જેમ કે ઇનપુટ પર ફોકસ કરવું) અથવા કોઈ એવી વેલ્યુ સાચવવી હોય જે બદલાય ત્યારે કમ્પોનન્ટને ફરીથી રેન્ડર ના કરે, ત્યારે <code>useRef</code> વપરાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> લેઝર પોઈન્ટર. તમે આખી વસ્તુને હલાવ્યા વગર સીધી કોઈ એક જગ્યાએ પોઈન્ટ કરી શકો છો.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>const inputRef = useRef(null);
+
+const focusInput = () => {
+    inputRef.current.focus(); // સીધું ઇનપુટ પર ફોકસ કરશે
+};
+
+return <input ref={inputRef} />;</code></pre>
+    </div>
+
+    <!-- Custom Hooks Section -->
+    <div id="customhooks" class="content-section">
+        <h2>4. Custom Hooks (કોડ રિયુઝેબિલિટી) 🛠️</h2>
+        <div class="explanation">
+            જ્યારે કોઈ લોજિક (જેમ કે API કોલ કરવો કે વિન્ડો સાઈઝ માપવી) તમારે ઘણા બધા કમ્પોનન્ટમાં વાપરવું હોય, ત્યારે તમે તમારો પોતાનો <b>Custom Hook</b> બનાવી શકો છો. તેનું નામ હંમેશા 'use' થી શરૂ થાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> ઘરની બહાર બનાવેલી પ્લગ-સોકેટ. તમે કોઈ પણ ઇલેક્ટ્રિક વસ્તુ તેમાં ભરાવીને વાપરી શકો છો, તમારે દરેક વસ્તુ માટે નવું વાયરિંગ નથી કરવું પડતું.
+        </div>
+        <h3>કોન્સેપ્ટ એક્ઝામ્પલ:</h3>
+        <pre><code>// useOnlineStatus.js (Custom Hook)
+function useOnlineStatus() {
+    const [isOnline, setIsOnline] = useState(true);
+    // ... લોજિક અહીં આવશે
+    return isOnline;
+}
+
+// વાપરવા માટે:
+const isOnline = useOnlineStatus();</code></pre>
+    </div>
+
+    <!-- Context API Section -->
+    <div id="contextapi" class="content-section">
+        <h2>5. Context API (ગ્લોબલ સ્ટેટ) 🌐</h2>
+        <div class="explanation">
+            જ્યારે તમારે કોઈ ડેટા (જેમ કે 'Theme' કે 'User Login Info') આખા એપ્લિકેશનમાં ગમે ત્યાં વાપરવો હોય, અને તમે નથી ઈચ્છતા કે તેને દરેક કમ્પોનન્ટમાં Props તરીકે પાસ કરવો પડે (Prop Drilling), ત્યારે <b>Context API</b> વપરાય છે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> રેડિયો સ્ટેશન. એકવાર સ્ટેશન પરથી ગીત વાગે એટલે આખા શહેરના લોકો સાંભળી શકે, તમારે દરેકના ઘરે જઈને ગીત સંભળાવવું ના પડે.
+        </div>
+        <h3>પ્રેક્ટિસ કોડ:</h3>
+        <pre><code>const ThemeContext = createContext("light");
+
+// Provider
+&lt;ThemeContext.Provider value="dark"&gt;
+    &lt;App /&gt;
+&lt;/ThemeContext.Provider&gt;
+
+// Consumer
+const theme = useContext(ThemeContext);</code></pre>
+    </div>
+
+    <!-- useReducer Section -->
+    <div id="usereducer" class="content-section">
+        <h2>6. useReducer (કોમ્પ્લેક્સ સ્ટેટ લોજિક) ⚙️</h2>
+        <div class="explanation">
+            જ્યારે સ્ટેટ મેનેજમેન્ટ થોડું અઘરું હોય (જેમ કે Shopping Cart), ત્યારે <code>useState</code> કરતા <code>useReducer</code> વાપરવું સારું છે. તે Redux જેવું જ કામ કરે છે.
+        </div>
+        <pre><code>const initialState = { count: 0 };
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'increment': return { count: state.count + 1 };
+        default: return state;
+    }
+}
+
+const [state, dispatch] = useReducer(reducer, initialState);
+// dispatch({ type: 'increment' });</code></pre>
+    </div>
+
+    <!-- Redux Toolkit Section -->
+    <div id="redux" class="content-section">
+        <h2>7. Redux Toolkit (State Management) 🧠</h2>
+        <div class="explanation">
+            Redux એ આખી એપ્લિકેશનનો સ્ટેટ એક જ જગ્યાએ (Store) મેનેજ કરવા માટે વપરાય છે. Redux Toolkit (RTK) એ Redux લખવાની આધુનિક અને સરળ રીત છે.
+        </div>
+
+        <h3>Redux ના પાયાના શબ્દો:</h3>
+        <ul>
+            <li><b>Store:</b> એક 'સેન્ટ્રલ ડેટાબેઝ' જ્યાં આખી એપનો સ્ટેટ સાચવવામાં આવે છે.</li>
+            <li><b>Action:</b> એક ઓબ્જેક્ટ જે કહે છે કે "શું કરવું છે?" (દા.ત. 'ADD_TO_CART').</li>
+            <li><b>Reducer:</b> એક ફંક્શન જે એક્શન મુજબ સ્ટોરને અપડેટ કરે છે.</li>
+            <li><b>Dispatch:</b> એક્શનને રિડ્યુસર સુધી મોકલવાની રીત.</li>
+        </ul>
+
+        <div class="explanation" style="background: #e8f5e9; border-left-color: #4caf50;">
+            <b>Redux Flow:</b><br>
+            Component ➔ <b>dispatch(action)</b> ➔ Reducer ➔ <b>Store Update</b> ➔ UI Update
+        </div>
+
+        <h3>Redux Toolkit Features:</h3>
+        <ul>
+            <li><b>createSlice:</b> આમાં એક્શન અને રિડ્યુસર બંને એકસાથે લખી શકાય છે.</li>
+            <li><b>createAsyncThunk:</b> API કોલ (Async કામો) કરવા માટે વપરાય છે.</li>
+        </ul>
+
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> બેંક. 
+            - <b>Store:</b> બેંકનું તિજોરી (જ્યાં બધા પૈસા છે).
+            - <b>Action:</b> તમારી વિથડ્રોઅલ સ્લિપ (તમારે શું કરવું છે).
+            - <b>Dispatch:</b> કેશિયરને સ્લિપ આપવી.
+            - <b>Reducer:</b> કેશિયર જે તમારી સ્લિપ જોઈને કમ્પ્યુટરમાં બેલેન્સ અપડેટ કરે.
+        </div>
+
+        <h3>પ્રેક્ટિસ કોડ (createSlice):</h3>
+        <pre><code>import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { value: 0 },
+    reducers: {
+        increment: (state) => {
+            state.value += 1; // RTK માં સીધું સ્ટેટ બદલી શકાય!
+        }
+    }
+});
+
+export const { increment } = counterSlice.actions;
+export default counterSlice.reducer;</code></pre>
+
+        <h3>પ્રેક્ટિસ કોડ (createAsyncThunk):</h3>
+        <pre><code>import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchUsers = createAsyncThunk(
+    'users/fetch',
+    async () => {
+        const res = await fetch('https://api.example.com/users');
+        return res.json();
+    }
+);</code></pre>
+    </div>
+
+    <!-- API & Full Stack Section -->
+    <div id="api-basics" class="content-section">
+        <h2>8. API & Full Stack Basics 🌐</h2>
+        <div class="explanation">
+            જ્યારે આપણો ફ્રન્ટએન્ડ (React) સર્વર (Backend) સાથે વાત કરે છે, ત્યારે તે <b>REST API</b> નો ઉપયોગ કરે છે.
+        </div>
+
+        <h3>૧. REST API અને HTTP Methods:</h3>
+        <ul>
+            <li><b>GET:</b> ડેટા મેળવવા માટે (દા.ત. પ્રોડક્ટ્સ લિસ્ટ જોવું).</li>
+            <li><b>POST:</b> નવો ડેટા ઉમેરવા માટે (દા.ત. નવું એકાઉન્ટ બનાવવું).</li>
+            <li><b>PUT:</b> જૂનો ડેટા બદલવા માટે (દા.ત. પ્રોફાઈલ અપડેટ કરવી).</li>
+            <li><b>DELETE:</b> ડેટા કાઢી નાખવા માટે.</li>
+        </ul>
+
+        <h3>૨. Fetch vs Axios:</h3>
+        <div class="explanation">
+            - <b>Fetch:</b> બ્રાઉઝરમાં પહેલેથી આવે છે (In-built).<br>
+            - <b>Axios:</b> એક્સ્ટ્રા લાઈબ્રેરી છે, જે વાપરવામાં સરળ છે અને ઘણા ફીચર્સ આપે છે.
+        </div>
+        <pre><code>// Axios Example
+import axios from 'axios';
+
+const getData = async () => {
+    const res = await axios.get('https://api.example.com/data');
+    console.log(res.data);
+};</code></pre>
+
+        <h3>૩. Basic Auth Flow (JWT Concept):</h3>
+        <div class="explanation">
+            જ્યારે તમે લોગિન કરો, ત્યારે સર્વર તમને એક **"JWT Token"** (એક સિક્રેટ કોડ) આપે છે. આ ટોકન તમે બ્રાઉઝરમાં સાચવી લો છો (Local Storage માં). હવે જ્યારે પણ તમે કોઈ સિક્રેટ ડેટા માંગો, ત્યારે આ ટોકન બતાવવો પડે.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> મુવીની ટિકિટ. એકવાર ટિકિટ ખરીદી લો (Login), પછી તમારે વારંવાર પૈસા નથી આપવા પડતા, ફક્ત ટિકિટ (JWT Token) બતાવીને તમે મુવી જોઈ શકો છો.
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
