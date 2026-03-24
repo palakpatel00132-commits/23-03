@@ -25,10 +25,22 @@ class TaskController extends BaseController {
     }
   };
 
-  // Override getAll to filter by user (if exists) and populate
+  // Override getAll to filter by user (if exists), search and populate
   getAll = async (req, res) => {
     try {
-      const filter = req.user ? { created_by: req.user.id } : {};
+      const { search } = req.query;
+      let filter = req.user ? { created_by: req.user.id } : {};
+
+      // જો સર્ચ ક્વેરી હોય, તો $or અને regex અથવા $text સર્ચ વાપરવું
+      if (search) {
+        filter = {
+          ...filter,
+          $or: [
+            { title: { $regex: search, $options: 'i' } } // 'i' for case-insensitive
+          ]
+        };
+      }
+
       const tasks = await Task.find(filter).populate('created_by', 'name email');
       return sendSuccess(res, tasks, 'Tasks retrieved successfully');
     } catch (error) {

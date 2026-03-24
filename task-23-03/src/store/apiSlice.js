@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout } from './globalSlice';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3033/api',
+  baseUrl: BACKEND_URL,
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('token');
     if (token) {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -14,9 +14,20 @@ const getTimeString = () => new Date().toLocaleTimeString();
 function TaskList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  // RTK Query hooks
-  const { data: tasks = [], isLoading: isFetching } = useGetTasksQuery();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  // Debouncing logic: સર્ચ ઇનપુટમાં ટાઈપ કર્યાના 500ms પછી API કોલ થશે
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
+
+  // RTK Query hooks - હવે સર્ચ પેરામીટર સાથે
+  const { data: tasks = [], isLoading: isFetching } = useGetTasksQuery({ search: debouncedSearch });
   const [addTaskApi] = useAddTaskMutation();
   const [updateTaskApi] = useUpdateTaskMutation();
   const [deleteTaskApi] = useDeleteTaskMutation();
@@ -133,6 +144,17 @@ function TaskList() {
         {formik.touched.title && formik.errors.title && (
           <div className="error-msg">{formik.errors.title}</div>
         )}
+
+        {/* Search Input */}
+        <div className="search-container" style={{ marginTop: '20px', marginBottom: '10px' }}>
+          <input 
+            type="text" 
+            placeholder="🔍 Search tasks..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
+          />
+        </div>
 
         {isFetching ? (
           <p>Loading tasks...</p>

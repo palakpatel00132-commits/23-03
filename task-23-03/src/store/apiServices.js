@@ -3,7 +3,10 @@ import { apiSlice } from './apiSlice';
 // Common CRUD endpoints generator
 const createCrudEndpoints = (builder, resource, tagType) => ({
   [`get${resource}s`]: builder.query({
-    query: () => `/${resource.toLowerCase()}s`,
+    query: (params) => ({
+      url: `/${resource.toLowerCase()}s`,
+      params, // સર્ચ અને અન્ય ક્વેરી પેરામીટર્સ માટે
+    }),
     providesTags: [tagType],
     transformResponse: (response) => response.data || [],
   }),
@@ -64,7 +67,10 @@ export const apiServices = apiSlice.injectEndpoints({
     }),
 
     getUsers: builder.query({
-      query: () => '/users',
+      query: (params) => ({
+        url: '/users',
+        params,
+      }),
       providesTags: ['User'],
       transformResponse: (response) => response.data || [],
     }),
@@ -99,7 +105,7 @@ export const {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useGetGroupsQuery,
-  useAddGroupMutation, // This is generated from createCrudEndpoints(builder, 'Group', 'Group')
+  useAddGroupMutation, 
   useUpdateGroupMutation,
   useDeleteGroupMutation,
   useSplitExpensesMutation,
