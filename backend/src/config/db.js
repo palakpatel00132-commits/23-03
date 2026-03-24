@@ -4,6 +4,7 @@ import env from 'dotenv';
 env.config();
 
 export const JWT_SECRET = process.env.JWT_SECRET;
+export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 export const connectDB = async () => {
   try {

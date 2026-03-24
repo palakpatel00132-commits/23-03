@@ -4,6 +4,7 @@ import { connectDB } from './config/db.js';
 import { models } from './models/index.js';
 import routes from './routes/index.js';
 import cors from 'cors';
+import { apiLimiter } from './middleware/rateLimiter.js';
 
 env.config();
 
@@ -17,6 +18,9 @@ app.use(cors(
         origin: 'http://localhost:5173',
     }
 ));
+
+// Apply global rate limiter to all API routes
+app.use('/api', apiLimiter);
 
 // Use combined routes in a single line
 app.use('/api', routes);

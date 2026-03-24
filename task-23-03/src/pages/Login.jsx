@@ -30,10 +30,12 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const data = await loginApi(values).unwrap();
-        const token = data?.token;
+        const accessToken = data?.accessToken;
+        const refreshToken = data?.refreshToken;
 
-        if (token) {
-          localStorage.setItem('token', token);
+        if (accessToken) {
+          localStorage.setItem('token', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
           dispatch(setLoginStatus({ status: true, name: data?.user?.name || '' }));
           toast.success('Login successful! 🎉');
           navigate('/');

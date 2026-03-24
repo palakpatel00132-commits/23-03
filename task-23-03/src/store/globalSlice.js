@@ -28,6 +28,7 @@ const globalSlice = createSlice({
       state.isLoggedIn = false;
       state.userName = '';
       localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('userName');
     }
   }

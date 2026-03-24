@@ -2,18 +2,29 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/globalSlice';
+import { useLogoutMutation } from '../../store/apiServices';
 import './Header.scss';
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [logoutApi] = useLogoutMutation();
   const { isLoggedIn, userName } = useSelector(state => state.global);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    setShowDropdown(false);
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (refreshToken) {
+        await logoutApi({ token: refreshToken }).unwrap();
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      dispatch(logout());
+      setShowDropdown(false);
+      navigate('/login');
+    }
   };
 
   return (

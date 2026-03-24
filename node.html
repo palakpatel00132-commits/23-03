@@ -153,6 +153,7 @@
         <button class="tab-btn" onclick="showTab(event, 'mongoose')">Mongoose 🔗</button>
         <button class="tab-btn" onclick="showTab(event, 'auth')">Authentication 🔐</button>
         <button class="tab-btn" onclick="showTab(event, 'api-integration')">API Integration 📦</button>
+        <button class="tab-btn" onclick="showTab(event, 'rate-limiting')">Rate Limiting 🛡️</button>
         <button class="tab-btn" onclick="showTab(event, 'advanced-node')">Advanced Node ⚙️</button>
         <button class="tab-btn" onclick="showTab(event, 'bonus-node')">Bonus Topics 🧠</button>
     </div>
@@ -609,9 +610,45 @@ const getExternalData = async () => {
          </div>
      </div>
 
+    <!-- Rate Limiting Section -->
+    <div id="rate-limiting" class="content-section">
+        <h2>16. Rate Limiting (રિક્વેસ્ટ લિમિટ) 🛡️</h2>
+        <div class="explanation">
+            <b>Rate Limiting</b> એ એક એવી ટેકનિક છે જેના દ્વારા આપણે સર્વર પર આવતી રિક્વેસ્ટની સંખ્યાને નિયંત્રિત કરી શકીએ છીએ. આનાથી બ્રુટ ફોર્સ એટેક (Brute-force attack) અને DoS એટેકથી બચી શકાય છે.
+        </div>
+
+        <h3>૧. શા માટે જરૂરી છે?</h3>
+        <ul>
+            <li>સર્વરને ઓવરલોડ થતા બચાવવા માટે.</li>
+            <li>બોટ્સ અને સ્પામર્સને રોકવા માટે.</li>
+            <li>API ની સિક્યુરિટી વધારવા માટે.</li>
+        </ul>
+
+        <h3>૨. express-rate-limit વાપરવાની રીત:</h3>
+        <pre><code>const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // ૧૫ મિનિટ (સમયગાળો)
+    max: 100, // ૧૫ મિનિટમાં ફક્ત ૧૦૦ રિક્વેસ્ટ
+    message: "તમે બહુ બધી રિક્વેસ્ટ મોકલી છે, ૧૫ મિનિટ પછી ટ્રાય કરો! 🛑",
+    standardHeaders: true, // રિસ્પોન્સ હેડરમાં માહિતી મોકલવી
+    legacyHeaders: false, // જૂની હેડર સ્ટાઇલ બંધ કરવી
+});
+
+// બધા રાઉટ્સ પર વાપરવા માટે:
+app.use(limiter);
+
+// ફક્ત અમુક API પર વાપરવા માટે:
+app.use('/api/login', limiter);</code></pre>
+
+        <div class="analogy">
+            <b>એનાલોજી:</b> એક બેંકની લાઈન. જો કોઈ એક જ માણસ વારંવાર લાઈનમાં આવીને બીજાનો વારો ના આવવા દે, તો સિક્યુરિટી ગાર્ડ તેને રોકે છે અને કહે છે કે "તમે દિવસમાં ફક્ત ૩ વાર જ લાઈનમાં ઉભા રહી શકો છો". આ જ રીતે રેટ લિમિટર સર્વરને 'બોટ્સ' થી બચાવે છે.
+        </div>
+    </div>
+
     <!-- Advanced Node Section -->
     <div id="advanced-node" class="content-section">
-        <h2>16. Advanced Node.js Concepts (2-3 yr exp) ⚙️</h2>
+        <h2>17. Advanced Node.js Concepts (2-3 yr exp) ⚙️</h2>
         <div class="explanation">
             જ્યારે તમે પ્રોફેશનલ લેવલ પર કામ કરો, ત્યારે કોડનું સ્ટ્રક્ચર અને સિક્યુરિટી બહુ જ મહત્વની બની જાય છે.
         </div>
@@ -652,23 +689,17 @@ console.log(process.env.PORT);</code></pre>
             જ્યારે તમારું રિએક્ટ (React) બીજા પોર્ટ પર હોય અને નોડ (Node) બીજા પોર્ટ પર હોય, ત્યારે બ્રાઉઝર સિક્યુરિટી માટે રિક્વેસ્ટ રોકી દે છે. તેને મંજૂરી આપવા માટે <b>CORS</b> મિડલવેર વપરાય છે.
         </div>
 
-        <h3>૫. Rate Limiting:</h3>
-        <div class="explanation">
-            એક જ યુઝર વારંવાર રિક્વેસ્ટ મોકલીને સર્વર ડાઉન ના કરી દે, તે માટે રિક્વેસ્ટની સંખ્યા લિમિટ કરવી (દા.ત. ૧ મિનિટમાં ફક્ત ૧૦ રિક્વેસ્ટ).
-        </div>
-
         <div class="analogy">
             <b>એનાલોજી:</b> રેસ્ટોરન્ટ. 
             - <b>MVC:</b> રસોડું (Model), મેનુ (View), અને વેઈટર (Controller). 
             - <b>.env:</b> તિજોરીની ચાવી (ગમે ત્યાં ના રખાય, સિક્રેટ જગ્યાએ રખાય). 
             - <b>CORS:</b> હોટલના નિયમો કે બહારનું જમવાનું અંદર નહીં લાવવાનું, જો લાવો તો પરમિશન લેવી પડે.
-            - <b>Rate Limiting:</b> બુફે (Buffet) માં લિમિટ હોવી કે તમે એકસાથે બધું જમવાનું ના લઈ શકો, વારફરતી લેવું પડે.
         </div>
     </div>
 
     <!-- Bonus Topics Section -->
     <div id="bonus-node" class="content-section">
-        <h2>17. Bonus Topics (Extra Knowledge) 🧠</h2>
+        <h2>18. Bonus Topics (Extra Knowledge) 🧠</h2>
         <div class="explanation">
             આ ટોપિક્સ તમારી એપ્લિકેશનને વધુ પાવરફુલ અને રિયલ-ટાઇમ બનાવવામાં મદદ કરે છે.
         </div>

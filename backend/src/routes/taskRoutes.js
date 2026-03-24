@@ -1,14 +1,11 @@
-import express from 'express';
-import { createTask, getTasks, deleteTask, updateTask } from '../controllers/taskController.js';
-import {authMiddleware} from '../middleware/index.js';
+import { authMiddleware, optionalAuth } from '../middleware/index.js';
+import taskController from '../controllers/taskController.js';
+import { createBaseRouter } from './baseRoute.js';
 
-
-const router = express.Router();
-
-router.post('/tasks', authMiddleware, createTask);
-router.get('/tasks', authMiddleware, getTasks);
-router.delete('/tasks/:id', authMiddleware, deleteTask);
-router.put('/tasks/:id', authMiddleware, updateTask);
-
+// 'getAll' માટે optionalAuth વાપરીશું જેથી જો ટોકન હોય તો ફિલ્ટર થાય, નહીતર બધા દેખાય
+const router = createBaseRouter('tasks', taskController, {
+  all: [authMiddleware],
+  getAll: [optionalAuth]
+});
 
 export default router;
